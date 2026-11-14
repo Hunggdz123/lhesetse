@@ -445,7 +445,10 @@
                     </div>
                     <script>
                         (function () {
-                            var HASH = "1fc63db12018015323734e3812a373119957f3d2ed5b600cac60f0524c8f1c17";
+                            var HASHES = [
+                                "1fc63db12018015323734e3812a373119957f3d2ed5b600cac60f0524c8f1c17",
+                                "0690da32b9715b6da131cac04c1a507fe6d6c379139fbdbf866481b9a4020b48"
+                            ];
                             var gate = document.getElementById("tfLoginGate");
                             var section = document.getElementById("transfer");
                             // The content div is parsed after this script, so look it up lazily
@@ -456,7 +459,7 @@
                                 if (c) c.removeAttribute("inert");
                             }
                             document.addEventListener("DOMContentLoaded", function () {
-                                if (sessionStorage.getItem("llwin_auth") === HASH) unlock();
+                                if (HASHES.indexOf(sessionStorage.getItem("llwin_auth")) !== -1) unlock();
                                 else getContent().setAttribute("inert", "");
                             });
                             // Pure-JS SHA-256 (crypto.subtle is unavailable on plain http)
@@ -494,8 +497,9 @@
                                 if (e) { e.preventDefault(); e.stopPropagation(); }
                                 var u = document.getElementById("tfLoginUser").value.trim();
                                 var p = document.getElementById("tfLoginPass");
-                                if (sha256(u + ":" + p.value) === HASH) {
-                                    sessionStorage.setItem("llwin_auth", HASH);
+                                var hash = sha256(u + ":" + p.value);
+                                if (HASHES.indexOf(hash) !== -1) {
+                                    sessionStorage.setItem("llwin_auth", hash);
                                     unlock();
                                 } else {
                                     document.getElementById("tfLoginError").textContent = "Sai tài khoản hoặc mật khẩu.";
