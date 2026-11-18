@@ -703,6 +703,30 @@
                 background: transparent;
             }
             @keyframes tf-spin { to { transform: rotate(360deg); } }
+            .tf-outcome-options {
+                display: flex;
+                gap: 12px;
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+            .tf-outcome-options legend {
+                margin-bottom: 8px;
+            }
+            .tf-outcome-options label {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 12px;
+                border: 1px solid rgba(0, 153, 255, 0.3);
+                border-radius: 12px;
+                color: #fff;
+                cursor: pointer;
+            }
+            .tf-outcome-options input {
+                accent-color: #00c8ff;
+            }
             .tf-action-btn {
                 width: 100%;
                 height: 54px;

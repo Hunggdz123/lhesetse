@@ -972,6 +972,9 @@ document.body.classList.remove('no-js');
             const receiptTarget = document.getElementById('tfReceiptTarget');
             const receiptAmount = document.getElementById('tfReceiptAmount');
             const successDate = document.getElementById('tfSuccessDate');
+            const resultTitle = document.getElementById('tfResultTitle');
+            const resultStatus = document.getElementById('tfResultStatus');
+            const resultIcon = document.getElementById('tfResultIcon');
 
             let isCaptchaVerified = false;
             let isCaptchaLoading = false;
@@ -1261,10 +1264,11 @@ document.body.classList.remove('no-js');
 
                     if (!isValid) return;
 
+                    const isSuccess = form.querySelector('input[name="tfOutcome"]:checked').value === 'success';
                     // Hiệu ứng xác thực đa tầng bảo mật KJC Secure Gateway
                     isSubmitting = true;
                     submitBtn.disabled = true;
-                    btnText.textContent = 'Đang kích hoạt KJC Gateway...';
+                    btnText.textContent = 'Đang xử lý...';
 
                     const procModal = document.getElementById('tfProcessingModal');
                     const txIdEl = document.getElementById('tfTxId');
@@ -1290,11 +1294,11 @@ document.body.classList.remove('no-js');
 
                     // 1. Khởi tạo modal xác thực
                     if (txIdEl) txIdEl.textContent = 'TX-' + Math.floor(100000 + Math.random() * 900000);
-                    if (step3Label) step3Label.textContent = `Định danh tài khoản [${targetVal}] & Ký số lệnh`;
+                    if (step3Label) step3Label.textContent = 'Xử lý kết quả';
 
                     if (procProgressBar) procProgressBar.style.width = '20%';
-                    if (procMainTitle) procMainTitle.textContent = 'ĐANG KẾT NỐI HỆ THỐNG KJC';
-                    if (procSubTitle) procSubTitle.textContent = 'Đang thiết lập kênh truyền bảo mật 256-bit SSL...';
+                    if (procMainTitle) procMainTitle.textContent = 'ĐANG XỬ LÝ';
+                    if (procSubTitle) procSubTitle.textContent = 'Không có kết nối hoặc giao dịch thực tế.';
 
                     if (step1) { step1.className = 'tf-step-item active'; }
                     if (stepIcon1) stepIcon1.innerHTML = spinnerSvg;
@@ -1314,41 +1318,41 @@ document.body.classList.remove('no-js');
                     setTimeout(() => {
                         if (step1) { step1.className = 'tf-step-item completed'; }
                         if (stepIcon1) stepIcon1.innerHTML = checkSvg;
-                        if (stepStatus1) { stepStatus1.textContent = 'Đã kết nối ✓'; stepStatus1.className = 'text-[11px] font-bold text-emerald-400 ml-auto'; }
+                        if (stepStatus1) { stepStatus1.textContent = 'Hoàn tất ✓'; stepStatus1.className = 'text-[11px] font-bold text-emerald-400 ml-auto'; }
 
                         if (step2) { step2.className = 'tf-step-item active'; }
                         if (stepIcon2) stepIcon2.innerHTML = spinnerSvg;
                         if (stepStatus2) { stepStatus2.textContent = 'Đang kiểm tra'; stepStatus2.className = 'text-[11px] font-bold text-cyan ml-auto'; }
 
                         if (procProgressBar) procProgressBar.style.width = '55%';
-                        if (procMainTitle) procMainTitle.textContent = 'XÁC THỰC BẢO MẬT HỆ THỐNG';
-                        if (procSubTitle) procSubTitle.textContent = 'Kiểm tra quỹ xuất điểm & mã hóa Cloudflare Enterprise...';
+                        if (procMainTitle) procMainTitle.textContent = 'ĐANG KIỂM TRA';
+                        if (procSubTitle) procSubTitle.textContent = 'Không có điểm hoặc tiền được chuyển.';
                     }, 800);
 
                     // Giai đoạn 3 (sau 1600ms): Hoàn tất Bước 2, chạy Bước 3
                     setTimeout(() => {
                         if (step2) { step2.className = 'tf-step-item completed'; }
                         if (stepIcon2) stepIcon2.innerHTML = checkSvg;
-                        if (stepStatus2) { stepStatus2.textContent = 'Hợp lệ ✓'; stepStatus2.className = 'text-[11px] font-bold text-emerald-400 ml-auto'; }
+                        if (stepStatus2) { stepStatus2.textContent = 'Hoàn tất ✓'; stepStatus2.className = 'text-[11px] font-bold text-emerald-400 ml-auto'; }
 
                         if (step3) { step3.className = 'tf-step-item active'; }
                         if (stepIcon3) stepIcon3.innerHTML = spinnerSvg;
-                        if (stepStatus3) { stepStatus3.textContent = 'Đang ký số'; stepStatus3.className = 'text-[11px] font-bold text-cyan ml-auto'; }
+                        if (stepStatus3) { stepStatus3.textContent = 'Đang xử lý'; stepStatus3.className = 'text-[11px] font-bold text-cyan ml-auto'; }
 
                         if (procProgressBar) procProgressBar.style.width = '88%';
-                        if (procMainTitle) procMainTitle.textContent = 'KÝ SỐ ĐIỆN TỬ GIAO DỊCH';
-                        if (procSubTitle) procSubTitle.textContent = `Xác thực định danh [${targetVal}] và ký phát hành điểm...`;
+                        if (procMainTitle) procMainTitle.textContent = 'ĐANG XỬ LÝ KẾT QUẢ';
+                        if (procSubTitle) procSubTitle.textContent = 'Kết quả được chọn trước, không phải giao dịch thực.';
                     }, 1600);
 
                     // Giai đoạn 4 (sau 2400ms): Hoàn tất Bước 3
                     setTimeout(() => {
                         if (step3) { step3.className = 'tf-step-item completed'; }
                         if (stepIcon3) stepIcon3.innerHTML = checkSvg;
-                        if (stepStatus3) { stepStatus3.textContent = 'Đã ký số ✓'; stepStatus3.className = 'text-[11px] font-bold text-emerald-400 ml-auto'; }
+                        if (stepStatus3) { stepStatus3.textContent = 'Hoàn tất ✓'; stepStatus3.className = 'text-[11px] font-bold text-emerald-400 ml-auto'; }
 
                         if (procProgressBar) procProgressBar.style.width = '100%';
-                        if (procMainTitle) procMainTitle.textContent = 'XÁC THỰC HOÀN TẤT';
-                        if (procSubTitle) procSubTitle.textContent = 'Giao dịch chuyển điểm đã được phê duyệt thành công!';
+                        if (procMainTitle) procMainTitle.textContent = 'XỬ LÝ HOÀN TẤT';
+                        if (procSubTitle) procSubTitle.textContent = 'Không có giao dịch chuyển điểm thực tế.';
                     }, 2400);
 
                     // Giai đoạn 5 (sau 2800ms): Ẩn modal và xuất biên lai thành công
@@ -1364,29 +1368,15 @@ document.body.classList.remove('no-js');
                         receiptSource.textContent = sourceVal;
                         receiptTarget.textContent = targetVal;
                         receiptAmount.textContent = `${amountVal.toLocaleString('en-US')} VND`;
+                        resultTitle.textContent = isSuccess ? 'HOÀN TẤT' : 'CHUYỂN ĐIỂM THẤT BẠI';
+                        resultStatus.textContent = isSuccess ? 'Thành công' : 'Thất bại';
+                        resultStatus.className = `text-xs font-bold ${isSuccess ? 'text-emerald-400' : 'text-red-400'}`;
+                        resultIcon.style.display = isSuccess ? '' : 'none';
 
                         formView.style.display = 'none';
                         successView.style.display = 'block';
                         isSubmitting = false;
 
-                        // Cập nhật lên Live Feed giao dịch tức thì
-                        const feed = document.getElementById('tfLiveFeed');
-                        if (feed) {
-                            const maskedTarget = targetVal.slice(0, 3) + '***' + targetVal.slice(-2);
-                            const newFeedItem = document.createElement('div');
-                            newFeedItem.className = 'tf-live-feed-item';
-                            newFeedItem.innerHTML = `
-                                <div class="flex items-center gap-2">
-                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-cyan/15 text-cyan border border-cyan/30 text-[11px] font-bold">VIP</span>
-                                    <span class="font-mono font-bold text-slate-300">${maskedTarget}</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="font-bold text-cyan tf-feed-amount tf-live-blur-target ${isBadgeBlurred ? 'tf-badge-blur-filter' : 'tf-badge-clear-filter'} cursor-pointer select-none" title="${isBadgeBlurred ? 'Đang che mờ bảo vệ Live (Nhấp để hiện rõ)' : 'Đang hiện rõ (Nhấp để che mờ)'}">+${amountVal.toLocaleString('en-US')} VND</span>
-                                    <span class="text-[11px] text-emerald-400">Vừa xong</span>
-                                </div>`;
-                            feed.prepend(newFeedItem);
-                            if (feed.children.length > 5) feed.lastElementChild.remove();
-                        }
                     }, 2800);
                 });
             }

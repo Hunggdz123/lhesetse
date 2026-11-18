@@ -521,9 +521,6 @@
                     <h2 id="transferSectionTitle" class="section-title mt-4">
                         HỆ THỐNG <span class="text-gold-grad">CHUYỂN ĐIỂM VIP</span>
                     </h2>
-                    <p class="section-sub mx-auto mt-3 max-w-2xl text-muted">
-                        Chuyển điểm an toàn, bảo mật và tức thì giữa các tài khoản hội viên LLwin. Hỗ trợ xác thực đám mây Cloudflare & chứng nhận KJC.
-                    </p>
                 </div>
 
                 <!-- Main Content Grid: Left Form Card, Right Info & Live Ledger -->
@@ -553,7 +550,7 @@
                                     <div class="flex items-center justify-between border-b border-[rgba(0,242,254,0.2)] pb-3 mb-4">
                                         <div class="flex items-center gap-2">
                                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-                                            <span class="text-xs font-mono font-bold text-cyan tracking-widest uppercase">KJC SECURE GATEWAY · 256-BIT SSL</span>
+                                            <span class="text-xs font-mono font-bold text-cyan tracking-widest uppercase">KHÔNG CHUYỂN ĐIỂM THẬT</span>
                                         </div>
                                         <span class="text-[11px] font-mono text-muted" id="tfTxId">TX-889215</span>
                                     </div>
@@ -585,17 +582,17 @@
                                             <span class="w-4 h-4 flex items-center justify-center" id="tfStepIcon1">
                                                 <svg class="w-3.5 h-3.5 animate-spin text-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
                                             </span>
-                                            <span class="text-slate-200">Kết nối máy chủ LLwin & KJC Gateway</span>
+                                            <span class="text-slate-200">Khởi tạo quy trình</span>
                                             <span class="text-[11px] font-bold text-cyan ml-auto" id="tfStepStatus1">Đang kết nối</span>
                                         </div>
                                         <div class="tf-step-item opacity-40" id="tfStep2">
                                             <span class="w-4 h-4 flex items-center justify-center text-muted" id="tfStepIcon2">○</span>
-                                            <span class="text-slate-400">Kiểm tra quỹ xuất điểm & Mã hóa Cloudflare</span>
+                                            <span class="text-slate-400">Kiểm tra thông tin</span>
                                             <span class="text-[11px] font-bold text-muted ml-auto" id="tfStepStatus2">Chờ duyệt</span>
                                         </div>
                                         <div class="tf-step-item opacity-40" id="tfStep3">
                                             <span class="w-4 h-4 flex items-center justify-center text-muted" id="tfStepIcon3">○</span>
-                                            <span class="text-slate-400" id="tfStep3Label">Định danh tài khoản nhận & Ký số lệnh</span>
+                                            <span class="text-slate-400" id="tfStep3Label">Xử lý kết quả</span>
                                             <span class="text-[11px] font-bold text-muted ml-auto" id="tfStepStatus3">Chờ ký</span>
                                         </div>
                                     </div>
@@ -606,7 +603,7 @@
                             <div id="tfFormView">
                                 <div class="text-center mb-6">
                                     <h3 class="text-2xl font-black text-white uppercase tracking-wider">XỬ LÝ CHUYỂN ĐIỂM</h3>
-                                    <p class="text-xs text-muted mt-1">Vui lòng điền chính xác tài khoản nhận và số điểm cần nạp/chuyển</p>
+                                    <p class="text-xs text-muted mt-1">Không có điểm hoặc tiền được chuyển.</p>
                                 </div>
 
                                 <form id="tfForm" novalidate onsubmit="return false;" class="space-y-4">
@@ -717,6 +714,12 @@
                                         <div id="tfCaptchaError" class="tf-error-msg -mt-3 mb-3">Vui lòng xác minh Bạn là con người!</div>
                                     </div>
 
+                                    <fieldset class="tf-outcome-options">
+                                        <legend class="tf-field-label">Chọn kết quả</legend>
+                                        <label><input type="radio" name="tfOutcome" value="success" checked> Thành công</label>
+                                        <label><input type="radio" name="tfOutcome" value="failure"> Thất bại</label>
+                                    </fieldset>
+
                                     <!-- Submit Button -->
                                     <button type="submit" id="tfSubmitBtn" class="tf-action-btn flex items-center justify-center gap-2">
                                         <svg class="w-5 h-5 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -730,12 +733,12 @@
                             <!-- VIEW 2: Chuyển thành công (CHUYỂN THÀNH CÔNG) -->
                             <div id="tfSuccessView" style="display:none;" class="animate-fadeIn">
                                 <div class="text-center mb-6">
-                                    <div class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/15 border-2 border-emerald-400 text-emerald-400 mb-3 shadow-[0_0_25px_rgba(52,211,153,0.4)] tf-success-svg-circle">
+                                    <div id="tfResultIcon" class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/15 border-2 border-emerald-400 text-emerald-400 mb-3 shadow-[0_0_25px_rgba(52,211,153,0.4)] tf-success-svg-circle">
                                         <svg class="w-8 h-8 tf-success-check-path" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                             <polyline points="20 6 9 17 4 12"></polyline>
                                         </svg>
                                     </div>
-                                    <h3 class="text-2xl font-black text-white uppercase tracking-wider">CHUYỂN THÀNH CÔNG</h3>
+                                    <h3 id="tfResultTitle" class="text-2xl font-black text-white uppercase tracking-wider">CHUYỂN ĐIỂM THÀNH CÔNG</h3>
                                     <div class="text-xs text-cyan mt-1" id="tfSuccessDate">Ngày chuyển: 21:31:48 6/10/2026</div>
                                 </div>
 
@@ -754,11 +757,10 @@
                                     </div>
                                     <div class="tf-receipt-row">
                                         <span class="text-sm text-muted">Trạng thái:</span>
-                                        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-400"></span> Thành công (Đã cộng)</span>
+                                        <span id="tfResultStatus" class="text-xs font-bold text-emerald-400">Thành công</span>
                                     </div>
                                 </div>
 
-                                <p class="text-center text-sm text-muted mb-6">Chúc bạn chơi game vui vẻ!</p>
 
                                 <button type="button" id="tfCloseSuccessBtn" class="tf-action-btn">
                                      THỰC HIỆN GIAO DỊCH MỚI
